@@ -12,7 +12,7 @@ env/
 *.env
 
 # Performance testing scripts
-locust_file.py
+locustfile.py
 
 
 artifacts/
