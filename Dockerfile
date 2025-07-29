@@ -19,4 +19,4 @@ EXPOSE 8000
 
 # Define the command to run the app using uvicorn
 # This will run when the container launches.
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "deployment.app:app", "--host", "0.0.0.0", "--port", "8000"]
