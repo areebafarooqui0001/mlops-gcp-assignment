@@ -19,7 +19,7 @@ tracer = trace.get_tracer(__name__)
 span_processor = BatchSpanProcessor(CloudTraceSpanExporter())
 trace.get_tracer_provider().add_span_processor(span_processor)
 
-# --- Structured Logging Setup ---
+# -- Structured Logging Setup --
 # Create a custom JSON formatter
 class JsonFormatter(logging.Formatter):
     def format(self, record):
