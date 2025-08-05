@@ -1,26 +1,24 @@
-# train.py
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 import joblib
 import os
+import argparse
 
-DATA_PATH = 'data/iris.csv'
-MODEL_DIR = 'artifacts'
-MODEL_NAME = 'model.joblib'
-METRICS_FILE = 'metrics.txt'
-MODEL_PATH = os.path.join(MODEL_DIR, MODEL_NAME)
+def train_and_evaluate(data_path):
+    MODEL_DIR = 'artifacts'
+    MODEL_NAME = 'model.joblib'
+    METRICS_FILE = 'metrics.txt'
+    MODEL_PATH = os.path.join(MODEL_DIR, MODEL_NAME)
 
-def train_and_evaluate():
     os.makedirs(MODEL_DIR, exist_ok=True)
 
-    print(f"Loading data from {DATA_PATH}...")
+    print(f"Loading data from {data_path}...")
     try:
-        data = pd.read_csv(DATA_PATH)
+        data = pd.read_csv(data_path)
     except FileNotFoundError:
-        print(f"Error: {DATA_PATH} not found.")
+        print(f"Error: {data_path} not found.")
         exit(1)
 
     train, test = train_test_split(data, test_size=0.4, stratify=data['species'], random_state=42)
@@ -47,4 +45,7 @@ def train_and_evaluate():
     return accuracy
 
 if __name__ == "__main__":
-    train_and_evaluate()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data-path', type=str, required=True, help="Path to the CSV dataset")
+    args = parser.parse_args()
+    train_and_evaluate(args.data_path)
